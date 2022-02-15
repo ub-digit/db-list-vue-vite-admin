@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import TopicsView from "../views/TopicsView.vue";
 import ZeroState from "../components/ZeroState.vue";
+import Topic from "../components/Topic.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,12 +30,12 @@ const router = createRouter({
           name: 'ZeroState',
           component: ZeroState,
           props: {title: "topic"}
-        }/*,
+        },
         {
           path: '/topic/:id',
           name: 'Topic',
           component: Topic,
-          children: [
+          /*children: [
             {
               path: '',
               name: 'TopicShow',
@@ -45,8 +46,8 @@ const router = createRouter({
               name: 'TopicEdit',
               component: TopicEdit
             }
-          ]
-        }*/
+          ]*/
+        }
       ]
     },
   ],
