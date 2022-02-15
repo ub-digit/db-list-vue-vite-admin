@@ -1,7 +1,7 @@
 
 import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore({
+export const useTopicsStore = defineStore({
   id: "topics",
   state: () => {
     return {
@@ -44,7 +44,7 @@ export const useCounterStore = defineStore({
           },
         ]
   
-      }
+      } 
   
   },
   getters: {
