@@ -26,7 +26,10 @@
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-vue": "^8.2.0",
     "jsdom": "^19.0.0",
+    "node-sass": "^7.0.1",
     "prettier": "^2.5.1",
+    "sass": "^1.49.7",
+    "sass-loader": "^12.5.0",
     "start-server-and-test": "^1.14.0",
     "vite": "^2.7.13",
     "vitest": "^0.2.5"
