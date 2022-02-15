@@ -4,8 +4,7 @@
       <div class="col-2">
         <ul class="list-unstyled">
           <li v-for="topic in topics" :key="topic.id">
-              {{topic.id}}
-            <!--<router-link :to="{ name: 'TopicShow', params: { id: topic.id }}">{{topic.title_en}}</router-link> -->
+            <router-link :to="{ name: 'TopicShow', params: { id: topic.id }}">{{topic.title_en}}</router-link>
           </li>
         </ul>
       </div>

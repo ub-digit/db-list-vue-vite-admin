@@ -1,5 +1,6 @@
 
 import { defineStore } from "pinia";
+import _ from 'lodash'; 
 
 export const useTopicsStore = defineStore({
   id: "topics",
@@ -48,8 +49,32 @@ export const useTopicsStore = defineStore({
   
   },
   getters: {
+    getTopicById: (state) => (id) => {
+        try {
+          return state.topics.find((topic) => topic.id === parseInt(id) );
+        } catch (err) {
+          console.log(err.message);
+        }
+      }
   },
   actions: {
-
-  },
+    removeTopic(payload) {
+        try {
+            this.topics.splice(this.topics.indexOf(payload), 1)
+        } catch (err)  {
+          console.log(err.message)
+        }
+    },
+    updateTopic(payload) {
+        try {
+            // http://shzhangji.com/blog/2018/04/17/form-handling-in-vuex-strict-mode/
+            var obj = this.topics.find(item => item.id === payload.id);
+            if (obj) {
+                _.assign(obj,payload);
+            }
+        } catch (err) {
+          console.log(err.message);
+        }
+    },
+  }
 });
