@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ref } from 'vue'
 import {useTopicsStore} from '@/stores/topics'
 import {cloneDeep} from 'lodash'
@@ -55,14 +55,15 @@ import {cloneDeep} from 'lodash'
 export default {
   name: 'TopicEdit',
   setup() {
+    const router = useRouter();
     const route = useRoute();
     const store = useTopicsStore();
     const topic = store.getTopicById(route.params.id);
     const topic_initial_state = ref(cloneDeep(topic));
 
-    const saveTopic = () => {
-      console.log(topic)
-      store.updateTopic(topic_initial_state.value);
+    const saveTopic = async () => {
+       await store.updateTopic(topic_initial_state.value);
+       router.push({name: 'TopicShow', params: {id: topic.id }});
     }
 
     const addSubTopic = () => {
