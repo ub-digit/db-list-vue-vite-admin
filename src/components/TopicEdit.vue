@@ -6,7 +6,8 @@
               <h1>Edit topic</h1>
             </div>
             <div class="col-auto align-self-end">
-              <input class="btn btn-primary" type="submit" @click.prevent="saveTopic" value="Save">
+              <router-link class="btn btn-light me-2" :to="{name: 'TopicShow', params: {id: topic_initial_state.id}}">Cancel</router-link>
+              <input class="btn btn-primary" type="submit" @click.prevent="saveTopic" value="Save" :disabled="!isDirty">
             </div>
         </div>
         <div class="mb-3">
@@ -47,22 +48,30 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
+import { computed, ref } from 'vue'
 import {useTopicsStore} from '@/stores/topics'
-import {cloneDeep} from 'lodash'
+import _ from 'lodash'
 
 export default {
   name: 'TopicEdit',
   setup() {
+    const router = useRouter();
     const route = useRoute();
     const store = useTopicsStore();
     const topic = store.getTopicById(route.params.id);
-    const topic_initial_state = ref(cloneDeep(topic));
+    const topic_initial_state = ref(_.cloneDeep(topic));
+    const isDirty = computed(() => _.isEqual(topic, topic_initial_state.value) ? false: true);
 
-    const saveTopic = () => {
-      console.log(topic)
-      store.updateTopic(topic_initial_state.value);
+    onBeforeRouteLeave(() => {
+      if (isDirty.value) {
+        const answer = window.confirm("It looks like you have been editing something. If you leave before saving, your changes will be lost.");
+        if (!answer) return false;
+      }
+    })
+    const saveTopic = async () => {
+       await store.updateTopic(topic_initial_state.value);
+       router.push({name: 'TopicShow', params: {id: topic.id }});
     }
 
     const addSubTopic = () => {
@@ -85,7 +94,8 @@ export default {
       topic_initial_state,
       saveTopic,
       addSubTopic,
-      removeSubTopic
+      removeSubTopic,
+      isDirty
     }
   }
 }

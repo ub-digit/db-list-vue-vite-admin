@@ -39,7 +39,7 @@ const router = createRouter({
           component: Topic,
           children: [
             {
-              path: '',
+              path: '/',
               name: 'TopicShow',
               component: TopicShow
             },
