@@ -4,6 +4,7 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 import {useFontawesome} from '@/plugins/fontawesome.js';
+import "@/scss/custom.scss";
 
 const app = createApp(App);
 const {FontAwesomeIcon} = useFontawesome();
