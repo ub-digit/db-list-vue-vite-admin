@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import TopicsView from "../views/TopicsView.vue";
 import TopicsViewIndex from "../views/TopicsViewIndex.vue";
-import Topic from "../components/Topic.vue";
-import TopicShow from "../components/TopicsShow.vue";
-import TopicEdit from "../components/TopicEdit.vue";
+import Topic from "../views/Topic.vue";
+import TopicShow from "../views/TopicsShow.vue";
+import TopicEdit from "../views/TopicEdit.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
