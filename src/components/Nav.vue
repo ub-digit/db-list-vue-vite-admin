@@ -16,7 +16,7 @@
             <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
           </li>
           <li class="nav-item" >
-            <router-link :to="{name: 'ZeroState'}" class="nav-link">Topics</router-link>
+            <router-link :to="{name: 'index'}" class="nav-link">Topics</router-link>
           </li>
         </ul>
       </div>
