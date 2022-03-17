@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import VueFormulate from '@braid/vue-formulate';
 import App from "./App.vue";
 import router from "./router";
+import { plugin, defaultConfig } from '@formkit/vue';
 import {useFontawesome} from '@/plugins/fontawesome.js';
 import "@/scss/custom.scss";
 
@@ -12,5 +12,5 @@ app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.use(createPinia());
 app.use(router);
-app.use(VueFormulate.default);
+app.use(plugin, defaultConfig);
 app.mount("#app");
