@@ -1,22 +1,46 @@
 <template>
   <div class="edit-topic-wrapper">
-    <form v-if="topic_initial_state">
+    <div v-if="topic_initial_state">
           <div class="row">
             <div class="col">
               <h1>Edit topic</h1>
             </div>
             <div class="col-auto align-self-end">
               <router-link class="btn btn-light me-2" :to="{name: 'TopicShow', params: {id: topic_initial_state.id}}">Cancel</router-link>
-              <input class="btn btn-primary" type="submit" @click.prevent="saveTopic" value="Save" :disabled="!isDirty">
+              <FormKit
+                :classes="{
+                  outer: 'd-inline-block',
+                  input: 'btn btn-primary'
+                }"
+                @click.prevent="saveTopic"
+                type="submit"
+                label="Save"
+                :disabled="!isDirty"
+              />
             </div>
         </div>
+
         <div class="mb-3">
-          <label for="topic-title-en">English</label>
-          <input  class="form-control" v-model="topic_initial_state.title_en" type="text"  name="topic-title-en" id="topic-title-en">
+          <FormKit 
+            type="text" 
+            :classes="{
+              input: 'form-control'
+            }"
+            label="English"
+            name="topic_initial_state.title_en"
+            v-model="topic_initial_state.title_en"
+          />
         </div>
         <div class="mb-3">
-          <label for="topic-title-en">Swedish</label>
-          <input class="form-control" v-model="topic_initial_state.title_sv" type="text" name="topic-title-sv" id="topic-title-sv">
+          <FormKit 
+            type="text" 
+            :classes="{
+              input: 'form-control'
+            }"
+            label="Swedish"
+            name="topic_initial_state.title_sv"
+            v-model="topic_initial_state.title_sv"
+          />
         </div>
 
         <div id="sub-topics-wrapper" v-if="topic_initial_state.sub_topics">
@@ -26,13 +50,27 @@
                   <div class="row">                    
                     <div>ID: ({{sub_topic.id}})</div>
                     <div class="col">
-                      <label :for="sub_topic.id + '-en'">English</label>
-                      <input :name="sub_topic.id + '-en'" class="form-control mb-3" v-model="sub_topic.title_en" type="text">
-                      <label :for="sub_topic.id + '-sv'">Swedish</label>
-                      <input :name="sub_topic.id +'-sv'" class="form-control" v-model="sub_topic.title_sv" type="text">
+                      <FormKit
+                        type="text"
+                        :classes="{
+                          input: 'form-control mb-3'
+                        }"
+                        label="English"
+                        :name="sub_topic.id + '-en'"
+                        v-model="sub_topic.title_en"
+                      />
+                      <FormKit
+                        type="text"
+                        :classes="{
+                          input: 'form-control mb-3'
+                        }"
+                        label="Swedish"
+                        :name="sub_topic.id + '-sv'"
+                        v-model="sub_topic.title_sv"
+                      />
                     </div>
                     <div class="col-auto">
-                      <button @click.prevent="removeSubTopic(index)" :disabled="!sub_topic.can_be_removed" class="btn btn-danger">Remove</button>
+                      <button @click.prevent="removeSubTopic(index)" :disabled="sub_topic.marked_for_removal" class="btn btn-danger">Remove</button>
                     </div>
                   </div>
                 </li>
@@ -43,7 +81,7 @@
             </div>
           </div>
         </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -70,6 +108,10 @@ export default {
       }
     })
     const saveTopic = async () => {
+      const sub_topics_to_keep = topic_initial_state.value.sub_topics.filter((item) => {
+        return !item.marked_for_removal;
+      })
+      topic_initial_state.value.sub_topics = sub_topics_to_keep;
        await store.updateTopic(topic_initial_state.value);
        router.push({name: 'TopicShow', params: {id: topic.id }});
     }
@@ -78,8 +120,7 @@ export default {
       const subtopic = {
         id: null,
         title_sv: '',
-        title_en: '',
-        can_be_removed: true
+        title_en: ''
       }
       topic_initial_state.value.sub_topics.push(subtopic);
     } 
