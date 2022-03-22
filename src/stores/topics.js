@@ -42,6 +42,7 @@ export const useTopicsStore = defineStore({
             id: 3,
             title_sv: "Teknologi",
             title_en: "Technology",
+            sub_topics:[]
           },
         ]
   
@@ -76,5 +77,13 @@ export const useTopicsStore = defineStore({
           console.log(err.message);
         }
     },
+    newTopic(payload) {
+      try {
+        payload.id = parseInt(_.now());
+        this.topics.push(payload)
+      } catch (error) {
+        
+      }
+    }
   }
 });

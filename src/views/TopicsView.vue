@@ -1,4 +1,9 @@
 <template>
+  <div class="row justify-content-end">
+    <div class="col-auto m-4">
+        <router-link v-if="isNewVisible" class="btn btn-dark" :to="{name: 'TopicNew'}">New topic</router-link>
+    </div>
+  </div>
   <div class="row subjects">
     <div v-if="topics.length" class="row">
       <div class="col-2">
@@ -23,13 +28,16 @@
 <script>
 import { useTopicsStore } from "@/stores/topics"
 import {computed } from 'vue'
+import {useRoute} from 'vue-router'
 
 export default {
   name: 'Topics',
   setup() {
     const topicStore = useTopicsStore();
+    const route = useRoute();
     return {
       topics: computed(() => topicStore.topics), 
+      isNewVisible: computed(() => route.name != 'TopicNew')
     } 
   }
 }

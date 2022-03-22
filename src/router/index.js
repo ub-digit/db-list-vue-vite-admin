@@ -5,6 +5,7 @@ import TopicsViewIndex from "../views/TopicsViewIndex.vue";
 import Topic from "../views/Topic.vue";
 import TopicShow from "../views/TopicsShow.vue";
 import TopicEdit from "../views/TopicEdit.vue";
+import TopicNew from "../views/TopicNew.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,17 +27,22 @@ const router = createRouter({
           props: {title: "topic"}
         },
         {
-          path: '/topic/:id',
+          path: '/',
           name: 'Topic',
           component: Topic,
           children: [
+            { 
+              path: 'new',
+              name: 'TopicNew',
+              component: TopicNew
+            },
             {
-              path: '',
+              path: 'show/:id',
               name: 'TopicShow',
               component: TopicShow
             },
             {
-              path: 'edit',
+              path: 'edit/:id',
               name: 'TopicEdit',
               component: TopicEdit
             }
