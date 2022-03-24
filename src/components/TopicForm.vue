@@ -1,6 +1,7 @@
 <template>
   <div class="edit-topic-wrapper">
     <div v-if="topic_initial_state">
+      <FormKit type="form" :actions="false">
           <div class="row">
             <div class="col">
               <h1>{{props.title}}</h1>
@@ -20,15 +21,25 @@
             </div>
         </div>
 
+        <div v-if="props.errors" class="row mt-3">
+          <div class="col">
+            <div v-if="props.errors.topic" class="alert alert-danger" role="alert">
+              {{props.errors.topic}}
+          </div>
+        </div>
+          
+        </div>
         <div class="mb-3">
           <FormKit 
             type="text" 
             :classes="{
               input: 'form-control'
             }"
-            label="English"
+            label="Topic name (en)"
             name="topic_initial_state.title_en"
             v-model="topic_initial_state.title_en"
+            validation="required"
+            placeholder="Topic name"
           />
         </div>
         <div class="mb-3">
@@ -37,14 +48,26 @@
             :classes="{
               input: 'form-control'
             }"
-            label="Swedish"
+            label="Topic name (sv)"
             name="topic_initial_state.title_sv"
             v-model="topic_initial_state.title_sv"
+            placeholder="Topic name"
           />
         </div>
 
         <div id="sub-topics-wrapper" v-if="topic_initial_state.sub_topics">
           <h2>Subtopics</h2>
+          <div v-if="props.errors && props.errors.sub_topics" class="row mt-3">
+            <div class="col">
+              <div v-if="props.errors.sub_topics" class="alert alert-danger" role="alert">
+                <ul>
+                  <li v-for="(error,index) in props.errors.sub_topics" :key="index">
+                    {{error}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
           <ul id="sub-topics-list" class="list-unstyled">
                 <li :class="{is_marked_for_removal:sub_topic.marked_for_removal}" v-for="(sub_topic, index) in topic_initial_state.sub_topics" :key="index">
                   <div class="row">                    
@@ -55,18 +78,20 @@
                         :classes="{
                           input: 'form-control mb-3'
                         }"
-                        label="English"
+                        label="Subtopic name (en)"
                         :name="sub_topic.id + '-en'"
                         v-model="sub_topic.title_en"
+                        placeholder="Subtopic name"
                       />
                       <FormKit
                         type="text"
                         :classes="{
                           input: 'form-control mb-3'
                         }"
-                        label="Swedish"
+                        label="Subtopic name (sv)"
                         :name="sub_topic.id + '-sv'"
                         v-model="sub_topic.title_sv"
+                        placeholder="Subtopic name"
                       />
                     </div>
                     <div class="col-auto">
@@ -81,6 +106,7 @@
             </div>
           </div>
         </div>
+      </FormKit>
     </div>
   </div>
 </template>
@@ -94,7 +120,7 @@ import _ from 'lodash'
 export default {
   name: 'TopicForm',
   emits: ['saveTopic'],
-  props: ['topic', 'title'],
+  props: ['topic', 'title', 'errors'],
   setup(props, ctx) {
     const router = useRouter();
     const route = useRoute();
@@ -103,6 +129,7 @@ export default {
     const topic_initial_state = ref(_.cloneDeep(topic));
     const isDirty = computed(() => _.isEqual(topic, topic_initial_state.value) ? false: true);
     let isSaved = false;
+  
 
     onBeforeRouteLeave(() => {
       if (isDirty.value && !isSaved) {
@@ -128,9 +155,7 @@ export default {
       topic_initial_state.value.sub_topics.push(subtopic);
     } 
     const removeSubTopic = (index) => {
-      if (confirm("Are you sure?")) {
-        topic_initial_state.value.sub_topics[index].marked_for_removal = true;
-      }
+      topic_initial_state.value.sub_topics[index].marked_for_removal = true;
     }
   
 
@@ -147,8 +172,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style  lang="scss">
   .edit-topic-wrapper {
+    .formkit-label {
+      font-weight: bold;
+    }
     #sub-topics-wrapper {
       margin-left: 20px;
       #sub-topics-list {
