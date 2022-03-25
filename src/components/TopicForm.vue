@@ -142,8 +142,8 @@ export default {
         return !item.marked_for_removal;
       })
       topic_initial_state.value.sub_topics = sub_topics_to_keep;
-        ctx.emit('saveTopic', topic_initial_state.value);
-        isSaved = true;
+      ctx.emit('saveTopic', topic_initial_state.value);
+      isSaved = true;
     }
 
     const addSubTopic = () => {

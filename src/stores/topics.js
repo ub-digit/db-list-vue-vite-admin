@@ -80,12 +80,12 @@ export const useTopicsStore = defineStore({
     },
     async updateTopic(payload) {
         try {
-           await this.fakeApiCall(payload)
+           //await this.fakeApiCall(payload)
             // http://shzhangji.com/blog/2018/04/17/form-handling-in-vuex-strict-mode/
-            /*var obj = this.topics.find(item => item.id === payload.id);
+            var obj = this.topics.find(item => item.id === payload.id);
             if (obj) {
                 _.assign(obj,payload);
-            }*/
+            }
         } catch (inputErrors) {
             if (inputErrors) {
               console.log(`backend error: ${ inputErrors}` );

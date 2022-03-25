@@ -68,3 +68,27 @@ $form-label-font-weight: bold;
 // Utilities
 @import "../../node_modules/bootstrap/scss/utilities/api";
 // scss-docs-end import-stack
+
+
+
+// Vue-toastification
+// (Use bootstrap 5 alerts color scheme)
+$vt-text-color-warning: #664d03;
+$vt-color-warning: #fff3cd;
+
+$vt-text-color-error: #842029;
+$vt-color-error: #f8d7da;
+
+$vt-text-color-success: #0f5132;
+$vt-color-success: #d1e7dd;
+
+$vt-text-color-info: #0c5460;
+$vt-color-info: #d1ecf1;
+
+@import "vue-toastification/src/scss/_variables";
+@import "vue-toastification/src/scss/_toastContainer";
+@import "vue-toastification/src/scss/_toast";
+@import "vue-toastification/src/scss/_closeButton";
+@import "vue-toastification/src/scss/_progressBar";
+@import "vue-toastification/src/scss/_icon";
+@import "vue-toastification/src/scss/animations/_fade";
