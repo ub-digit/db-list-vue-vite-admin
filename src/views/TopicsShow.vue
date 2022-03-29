@@ -48,7 +48,7 @@ export default {
     const removeTopic = (topic) => {
       if (confirm("Are you sure?")) {
         topicsStore.removeTopic(topic);
-        router.push({name:'ZeroState'});
+        router.push({name:'index'});
       }
     }
 

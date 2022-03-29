@@ -1,15 +1,15 @@
 <template>
   <div class="row justify-content-end">
     <div class="col-auto m-4">
-        <router-link v-if="isNewVisible" class="btn btn-light" :to="{name: 'TopicNew'}">New topic +</router-link>
+        <router-link v-if="isNewVisible" class="btn btn-light" :to="{name: 'MediatypeNew'}">New mediatype +</router-link>
     </div>
   </div>
   <div class="row subjects">
-    <div v-if="topics.length" class="row">
+    <div v-if="mediatypes.length" class="row">
       <div class="col-2">
         <ul class="list-unstyled">
-          <li v-for="topic in topics" :key="topic.id">
-            <router-link :to="{ name: 'TopicShow', params: { id: topic.id }}">{{topic.title_en}}</router-link>
+          <li v-for="mediatype in mediatypes" :key="mediatype.id">
+            <router-link :to="{ name: 'MediatypeShow', params: { id: mediatype.id }}">{{mediatype.title_en}}</router-link>
           </li>
         </ul>
       </div>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div v-else>
-      No topics created
+      No mediatypes created
     </div>
     
     
@@ -26,18 +26,18 @@
 </template>
 
 <script>
-import { useTopicsStore } from "@/stores/topics"
+import { useMediatypesStore } from "@/stores/mediatypes"
 import {computed } from 'vue'
 import {useRoute} from 'vue-router'
 
 export default {
-  name: 'Topics',
+  name: 'Mediatypes',
   setup() {
-    const topicStore = useTopicsStore();
+    const mediatypesStore = useMediatypesStore();
     const route = useRoute();
     return {
-      topics: computed(() => topicStore.topics), 
-      isNewVisible: computed(() => route.name != 'TopicNew')
+      mediatypes: computed(() => mediatypesStore.mediatypes), 
+      isNewVisible: computed(() => route.name != 'MediatypeNew')
     } 
   }
 }

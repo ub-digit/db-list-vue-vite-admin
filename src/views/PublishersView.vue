@@ -1,15 +1,15 @@
 <template>
   <div class="row justify-content-end">
     <div class="col-auto m-4">
-        <router-link v-if="isNewVisible" class="btn btn-light" :to="{name: 'TopicNew'}">New topic +</router-link>
+        <router-link v-if="isNewVisible" class="btn btn-light" :to="{name: 'PublisherNew'}">New publisher +</router-link>
     </div>
   </div>
   <div class="row subjects">
-    <div v-if="topics.length" class="row">
+    <div v-if="publishers.length" class="row">
       <div class="col-2">
         <ul class="list-unstyled">
-          <li v-for="topic in topics" :key="topic.id">
-            <router-link :to="{ name: 'TopicShow', params: { id: topic.id }}">{{topic.title_en}}</router-link>
+          <li v-for="publisher in publishers" :key="publisher.id">
+            <router-link :to="{ name: 'PublisherShow', params: { id: publisher.id }}">{{publisher.title}}</router-link>
           </li>
         </ul>
       </div>
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div v-else>
-      No topics created
+      No publishers created
     </div>
     
     
@@ -26,18 +26,18 @@
 </template>
 
 <script>
-import { useTopicsStore } from "@/stores/topics"
+import { usePublishersStore } from "@/stores/publishers"
 import {computed } from 'vue'
 import {useRoute} from 'vue-router'
 
 export default {
-  name: 'Topics',
+  name: 'publishers',
   setup() {
-    const topicStore = useTopicsStore();
+    const publishersStore = usePublishersStore();
     const route = useRoute();
     return {
-      topics: computed(() => topicStore.topics), 
-      isNewVisible: computed(() => route.name != 'TopicNew')
+      publishers: computed(() => publishersStore.publishers), 
+      isNewVisible: computed(() => route.name != 'PublisherNew')
     } 
   }
 }

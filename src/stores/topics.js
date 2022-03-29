@@ -42,6 +42,7 @@ export const useTopicsStore = defineStore({
             id: 3,
             title_sv: "Teknologi",
             title_en: "Technology",
+            sub_topics:[]
           },
         ]
   
@@ -58,6 +59,18 @@ export const useTopicsStore = defineStore({
       }
   },
   actions: {
+    fakeApiCall(data) {
+      return new Promise((_, reject) => {
+        setTimeout(
+          () =>
+            reject({
+              topic: 'Error while saving',
+              sub_topics: ['error1', 'error2']
+            }),
+          1000
+        )
+      })
+    },
     removeTopic(payload) {
         try {
             this.topics.splice(this.topics.indexOf(payload), 1)
@@ -65,16 +78,32 @@ export const useTopicsStore = defineStore({
           console.log(err.message)
         }
     },
-    updateTopic(payload) {
+    async updateTopic(payload) {
         try {
+           //await this.fakeApiCall(payload)
             // http://shzhangji.com/blog/2018/04/17/form-handling-in-vuex-strict-mode/
             var obj = this.topics.find(item => item.id === payload.id);
             if (obj) {
                 _.assign(obj,payload);
             }
-        } catch (err) {
-          console.log(err.message);
+        } catch (inputErrors) {
+            if (inputErrors) {
+              console.log(`backend error: ${ inputErrors}` );
+              return inputErrors;
+            }
         }
     },
+    async newTopic(payload) {
+      try {
+       // await this.fakeApiCall(payload)
+        payload.id = parseInt(_.now());
+        this.topics.push(payload)
+      } catch (inputErrors) {
+        if (inputErrors) {
+          console.log(`backend error: ${ inputErrors }`);
+          return inputErrors;
+        }
+      }
+    }
   }
 });
