@@ -21,6 +21,9 @@
           <li class="nav-item" >
             <router-link :to="{name: 'mediatypeindex'}" class="nav-link">Mediatypes</router-link>
           </li>
+          <li class="nav-item" >
+            <router-link :to="{name: 'publisherindex'}" class="nav-link">Publishers</router-link>
+          </li>
         </ul>
       </div>
     </div>

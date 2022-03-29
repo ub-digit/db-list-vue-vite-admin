@@ -12,6 +12,13 @@ import Mediatype from "../views/Mediatype.vue";
 import MediatypeNew from "../views/MediatypeNew.vue";
 import MediatypeShow from "../views/MediatypeShow.vue";
 import MediatypeEdit from "../views/MediatypeEdit.vue"; 
+import PublishersView from "../views/PublishersView.vue";
+import PublishersViewIndex from "../views/PublishersViewIndex.vue"
+import Publisher from "../views/Publisher.vue"
+import PublisherNew from "../views/PublisherNew.vue"
+import PublisherShow from "../views/PublisherShow.vue"
+import PublisherEdit from "../views/PublisherEdit.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +27,41 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/publishers",
+      name: "publishers",
+      component: PublishersView,
+      children: [
+        {
+          path: "",
+          name: "publisherindex",
+          component: PublishersViewIndex,
+          props:  {title: "publisher"}
+        },
+        {
+          path: '/',
+          name: 'publisher',
+          component: Publisher,
+          children: [
+            {
+              path: "new",
+              name: "PublisherNew",
+              component: PublisherNew
+            },
+            {
+              path: 'show/:id',
+              name: 'PublisherShow',
+              component: PublisherShow
+            },
+            {
+              path: 'edit/:id',
+              name: 'PublisherEdit',
+              component: PublisherEdit
+            }
+          ]
+        }
+      ]
     },
     {
       path: "/mediatypes",
