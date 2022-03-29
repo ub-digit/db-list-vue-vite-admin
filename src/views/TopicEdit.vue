@@ -23,7 +23,7 @@ export default {
         const saveTopic = async (topic) => {
             errors.value = await store.updateTopic(topic);
             if (errors.value && (errors.value.topic.length || errors.value.sub_topics.length)) {
-                message.set('error', "Errors provide and try again")
+                message.set('error', "Errors in the form")
             }
             if (!errors.value) {
                 message.set("success", "Topic has been saved")

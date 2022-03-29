@@ -1,11 +1,14 @@
 <template>
-    <TopicForm :topic="topic" title="New topic" @saveTopic="saveTopic" />
+    <TopicForm :topic="topic" title="New topic" :errors="errors" @saveTopic="saveTopic" />
 </template>
 
 <script>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import TopicForm from "../components/TopicForm.vue"
 import { useTopicsStore } from "../stores/topics";
+import { useMessage } from '../plugins/message';
+import { use } from 'chai';
 
 export default {
 
@@ -13,6 +16,8 @@ export default {
         const store = useTopicsStore();
         const router = useRouter();
         const route = useRouter();
+        const message = useMessage();
+        let errors = ref(null);
         let topic = {
             id: null,
             title_sv: "",
@@ -20,12 +25,19 @@ export default {
             sub_topics: []
         };
         const saveTopic = async (item) => {
-            await store.newTopic(item);
-            topic = store.getTopicById(item.id);
-            router.push({name: 'TopicShow', params: {id: item.id }});
+            errors.value = await store.newTopic(item);
+            if (errors.value && (errors.value.topic.length || errors.value.sub_topics.length)) {
+                message.set('error', "Errors in the form ")
+            }
+            if (!errors.value) {
+                topic = store.getTopicById(item.id);
+                message.set("success", "New topic has been saved")
+                router.push({name: 'TopicShow', params: {id: item.id }});
+            }
         }
         return {
             topic, 
+            errors,
             saveTopic
         }
 

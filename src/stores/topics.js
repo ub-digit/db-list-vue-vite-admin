@@ -93,12 +93,16 @@ export const useTopicsStore = defineStore({
             }
         }
     },
-    newTopic(payload) {
+    async newTopic(payload) {
       try {
+       // await this.fakeApiCall(payload)
         payload.id = parseInt(_.now());
         this.topics.push(payload)
-      } catch (error) {
-        
+      } catch (inputErrors) {
+        if (inputErrors) {
+          console.log(`backend error: ${ inputErrors }`);
+          return inputErrors;
+        }
       }
     }
   }

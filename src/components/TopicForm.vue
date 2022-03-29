@@ -29,30 +29,32 @@
         </div>
           
         </div>
-        <div class="mb-3">
-          <FormKit 
-            type="text" 
-            :classes="{
-              input: 'form-control'
-            }"
-            label="Topic name (en)"
-            name="topic_initial_state.title_en"
-            v-model="topic_initial_state.title_en"
-            validation="required"
-            placeholder="Topic name"
-          />
-        </div>
-        <div class="mb-3">
-          <FormKit 
-            type="text" 
-            :classes="{
-              input: 'form-control'
-            }"
-            label="Topic name (sv)"
-            name="topic_initial_state.title_sv"
-            v-model="topic_initial_state.title_sv"
-            placeholder="Topic name"
-          />
+        <div class="row">
+          <div class="mb-3 col-6">
+            <FormKit 
+              type="text" 
+              :classes="{
+                input: 'form-control'
+              }"
+              label="Topic name (en)"
+              name="topic_initial_state.title_en"
+              v-model="topic_initial_state.title_en"
+              validation="required"
+              placeholder="Topic name"
+            />
+          </div>
+          <div class="mb-3 col-6">
+            <FormKit 
+              type="text" 
+              :classes="{
+                input: 'form-control'
+              }"
+              label="Topic name (sv)"
+              name="topic_initial_state.title_sv"
+              v-model="topic_initial_state.title_sv"
+              placeholder="Topic name"
+            />
+          </div>
         </div>
 
         <div id="sub-topics-wrapper" v-if="topic_initial_state.sub_topics">
@@ -72,7 +74,7 @@
                 <li :class="{is_marked_for_removal:sub_topic.marked_for_removal}" v-for="(sub_topic, index) in topic_initial_state.sub_topics" :key="index">
                   <div class="row">                    
                     <div>ID: ({{sub_topic.id}})</div>
-                    <div class="col">
+                    <div class="col-5">
                       <FormKit
                         type="text"
                         :classes="{
@@ -83,6 +85,8 @@
                         v-model="sub_topic.title_en"
                         placeholder="Subtopic name"
                       />
+                    </div>
+                    <div class="col-5">
                       <FormKit
                         type="text"
                         :classes="{
@@ -94,8 +98,8 @@
                         placeholder="Subtopic name"
                       />
                     </div>
-                    <div class="col-auto">
-                      <button @click.prevent="removeSubTopic(index)" :disabled="sub_topic.marked_for_removal" class="btn btn-danger">Remove</button>
+                    <div class="col">
+                      <button @click.prevent="removeSubTopic(index)" style="margin-top:24px" :disabled="sub_topic.marked_for_removal" class="btn btn-danger">Remove</button>
                     </div>
                   </div>
                 </li>

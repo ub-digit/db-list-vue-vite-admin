@@ -18,6 +18,9 @@
           <li class="nav-item" >
             <router-link :to="{name: 'index'}" class="nav-link">Topics</router-link>
           </li>
+          <li class="nav-item" >
+            <router-link :to="{name: 'mediatypeindex'}" class="nav-link">Mediatypes</router-link>
+          </li>
         </ul>
       </div>
     </div>
