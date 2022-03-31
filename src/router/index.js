@@ -40,7 +40,7 @@ const router = createRouter({
           props:  {title: "publisher"}
         },
         {
-          path: '/',
+          path: '/publisher',
           name: 'publisher',
           component: Publisher,
           children: [
@@ -75,7 +75,7 @@ const router = createRouter({
           props: {title: "mediatype"}
         },
         {
-          path: "/",
+          path: "/mediatype",
           name: "mediatype",
           component: Mediatype,
           children: [
@@ -110,7 +110,7 @@ const router = createRouter({
           props: {title: "topic"}
         },
         {
-          path: '/',
+          path: '/topic',
           name: 'Topic',
           component: Topic,
           children: [

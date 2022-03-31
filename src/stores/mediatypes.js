@@ -43,7 +43,7 @@ export const useMediatypesStore = defineStore({
     },
     removeMediatype(payload) {
         try {
-            this.mediatypes.splice(this.meditypes.indexOf(payload), 1)
+            this.mediatypes.splice(this.mediatypes.indexOf(payload), 1)
         } catch (err)  {
           console.log(err.message)
         }
