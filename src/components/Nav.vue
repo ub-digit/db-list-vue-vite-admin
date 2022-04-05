@@ -24,6 +24,9 @@
           <li class="nav-item" >
             <router-link :to="{name: 'publisherindex'}" class="nav-link">Publishers</router-link>
           </li>
+          <li class="nav-item" >
+            <router-link :to="{name: 'databaseindex'}" class="nav-link">Databases</router-link>
+          </li>
         </ul>
       </div>
     </div>

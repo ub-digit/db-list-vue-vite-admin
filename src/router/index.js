@@ -19,6 +19,13 @@ import PublisherNew from "../views/PublisherNew.vue"
 import PublisherShow from "../views/PublisherShow.vue"
 import PublisherEdit from "../views/PublisherEdit.vue"
 
+import DatabasesView from "../views/DatabasesView.vue";
+import DatabasesViewIndex from "../views/DatabasesViewIndex.vue"
+import Database from "../views/Database.vue"
+import DatabaseNew from "../views/DatabaseNew.vue"
+import DatabaseShow from "../views/DatabaseShow.vue"
+import DatabaseEdit from "../views/DatabaseEdit.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +34,41 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/databases",
+      name: "databases",
+      component: DatabasesView,
+      children: [
+        {
+          path: "",
+          name: "databaseindex",
+          component: DatabasesViewIndex,
+          props:  {title: "database"}
+        },
+        {
+          path: '/database',
+          name: 'database',
+          component: Database,
+          children: [
+            {
+              path: "new",
+              name: "DatabaseNew",
+              component: DatabaseNew
+            },
+            {
+              path: 'show/:id',
+              name: 'DatabaseShow',
+              component: DatabaseShow
+            },
+            {
+              path: 'edit/:id',
+              name: 'DatabaseEdit',
+              component: DatabaseEdit
+            }
+          ]
+        }
+      ]
     },
     {
       path: "/publishers",
